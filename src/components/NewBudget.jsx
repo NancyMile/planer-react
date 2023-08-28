@@ -2,7 +2,7 @@ import { useState } from 'react';
 import React from 'react'
 import Message from './Message';
 
-function NewBudget({ budget, setBudget }) {
+function NewBudget({ budget, setBudget, setIsValidBudget }) {
 
   const [message, setMessage] = useState('');
 
@@ -10,9 +10,14 @@ function NewBudget({ budget, setBudget }) {
     e.preventDefault();
     if ((!Number(budget)) || Number(budget) <0) {
       setMessage('Invalid Budget');
-    } else {
-      setMessage('Valid Budget')
+      return
     }
+
+    setMessage('');
+
+    console.log(budget);
+    setIsValidBudget(true);
+
   }
 
   return (
@@ -20,9 +25,9 @@ function NewBudget({ budget, setBudget }) {
       <form className='formulario' onSubmit={handleBudget}>
         <div className='campo'>
           <label htmlFor="budget">Budget</label>
-          <input onChange={(e) => { setBudget(e.target.value) }}  className='neevo-presupuesto' placeholder='Add budget' type="text" name="" id="" />
+          <input onChange={(e) => { setBudget(Number(e.target.value)) }}  className='neevo-presupuesto' placeholder='Add budget' type="number" name="" id="" />
           <input type="submit" value="Save" />
-          {message && <Message type="error">{message}</Message> }
+          {message && <Message type="error">{message}</Message>}
         </div>
       </form>
     </div>
