@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import CloseBtn from '../img/cerrar.svg';
+import Message from './Message';
 
-const Modal = ({ setModal, animateModal, setAnimateModal }) => {
+const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense }) => {
 
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
+    const [message, setMessage] = useState('');
 
     const hideModal = () => {
         setAnimateModal(false);
@@ -15,6 +17,22 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
         }, 500);
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        //validation
+        if ([name, amount, category].includes('')) {
+            setMessage('Missing Data');
+
+            setTimeout(() => {
+                setMessage('');
+            }, 1000);
+            return
+        }
+
+        saveExpense({name, amount, category});
+    }
+
 
     return (
         <div className="modal">
@@ -22,8 +40,9 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
                 <img src={CloseBtn} alt="close"  onClick={hideModal}/>
             </div>
 
-            <form className={`formulario ${animateModal ? 'animar' : 'cerrar'} `}>
+            <form onSubmit={handleSubmit} className={`formulario ${animateModal ? 'animar' : 'cerrar'} `}>
                 <legend>New Spense</legend>
+                {message && <Message type="error">{message}</Message>}
                 <div className='campo'>
                     <label htmlFor="name">Name</label>
                     <input type="text" name="spense" id="spense" placeholder='spense' value={name} onChange={(e) => {setName(e.target.value)}} />
