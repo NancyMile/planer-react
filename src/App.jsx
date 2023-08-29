@@ -3,6 +3,7 @@ import { useState } from 'react'
 import newExpense from './img/nuevo-gasto.svg';
 import Modal from './components/Modal';
 import {generateId} from './helpers';
+import ExpensesList from './components/ExpensesList';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
 
   const saveExpense = (expense) => {
     expense.id = generateId();
+    expense.date = Date.now();
     setExpenses([...expenses, expense]);
 
     //close modal
@@ -41,9 +43,16 @@ function App() {
       />
 
       {isValidBudget && (
+        <>
+          <main>
+            <ExpensesList
+              expenses={expenses}
+            />
+          </main>
           <div className='nuevo-gasto'>
             <img src={newExpense} alt="new expense" onClick={handleNewSpent} />
           </div>
+        </>
         )
       }
 
