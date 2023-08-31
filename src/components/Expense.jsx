@@ -7,7 +7,7 @@ import IconExpenses from '../img/icono_gastos.svg';
 import IconRecreation from '../img/icono_ocio.svg';
 import IconHealth from '../img/icono_salud.svg';
 import IconServices from '../img/icono_suscripciones.svg';
-import { LeadingActions, SwipeableListItem ,SwipeableList,SwipeAction, TrailingActions } from 'react-swipeable-list';
+import { LeadingActions, SwipeableListItem ,SwipeableList, SwipeAction, TrailingActions } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 
 const iconsDictionary = {
@@ -18,27 +18,27 @@ const iconsDictionary = {
     Services: IconServices
 }
 
-const Expense = ({ expense }) => {
+const Expense = ({ spent, setSpentEdit }) => {
 
-    const { name, amount, category, date, id } = expense;
+    const { name, amount, category, date, id } = spent;
     const leadingActions = () => (
-        <leadingActions>
+        <LeadingActions>
             <SwipeAction onClick={() => {
-                console.log("Edit");
+                setSpentEdit(spent);
             }}>
                 Edit
             </SwipeAction>
-        </leadingActions>
+        </LeadingActions>
     )
 
     const trailingActions = () => (
-        <trailingActions>
+        <TrailingActions>
             <SwipeAction onClick={() => {
                 console.log("Delete");
             }}>
                 Delete
             </SwipeAction>
-        </trailingActions>
+        </TrailingActions>
     )
 
     return (
