@@ -8,6 +8,10 @@ const ControlBudget = ({ budget, expenses }) => {
     useEffect(() => {
         const totalSpent = expenses.reduce((total, spent) => spent.amount + total, 0);
         setSpent(totalSpent);
+
+        const totalAvailable = budget - totalSpent;
+        setAvailable(totalAvailable);
+
     },[expenses])
 
     const formatAmount = (amount) => {
