@@ -1,5 +1,5 @@
 import Header from './components/Header'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import newExpense from './img/nuevo-gasto.svg';
 import Modal from './components/Modal';
 import {generateId} from './helpers';
@@ -12,6 +12,13 @@ function App() {
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [spentEdit, setSpentEdit] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(spentEdit).length > 0) {
+      console.log('Spent edit ready');
+    }
+  },[spentEdit]);
 
   const handleNewSpent = () => {
     setModal(true);
@@ -48,6 +55,7 @@ function App() {
           <main>
             <ExpensesList
               expenses={expenses}
+              setSpentEdit={setSpentEdit}
             />
           </main>
           <div className='nuevo-gasto'>
