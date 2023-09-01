@@ -8,6 +8,9 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [message, setMessage] = useState('');
+    // the following are neded  when editing the expense
+    const [date, setDate] = useState('');
+    const [id, setId] = useState('');
 
     useEffect(() => {
         if (Object.keys(spentEdit).length > 0) {
@@ -15,6 +18,8 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
             setName(spentEdit.name);
             setAmount(spentEdit.amount);
             setCategory(spentEdit.category);
+            setDate(spentEdit.date);
+            setId(spentEdit.id);
         }
     },[]);
 
@@ -39,7 +44,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
             return
         }
 
-        saveExpense({name, amount, category});
+        saveExpense({name, amount, category, id, date});
     }
 
 
@@ -50,7 +55,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
             </div>
 
             <form onSubmit={handleSubmit} className={`formulario ${animateModal ? 'animar' : 'cerrar'} `}>
-                <legend>New Spense</legend>
+                <legend>{spentEdit.id ? "Edit Expense" : "New Expense"}</legend>
                 {message && <Message type="error">{message}</Message>}
                 <div className='campo'>
                     <label htmlFor="name">Name</label>
@@ -64,7 +69,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
 
                 <div className='campo'>
                     <label htmlFor="category">Category</label>
-                    <select name="category" id="category" onChange={(e) => {setCategory(e.target.value)} }>
+                    <select name="category" id="category" onChange={(e) => {setCategory(e.target.value)} } value={category}>
                         <option value="" disabled>-- Select --</option>
                         <option value="savings">Savings</option>
                         <option value="food">Food</option>
@@ -73,7 +78,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit
                         <option value="Services">Services</option>
                     </select>
 
-                    <input type="submit" value="Add Expense" />
+                    <input type="submit" value={spentEdit.id ? "Edit Expense" : "Add Expense"} />
                 </div>
             </form>
         </div>

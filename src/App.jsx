@@ -35,9 +35,17 @@ function App() {
   }
 
   const saveExpense = (expense) => {
-    expense.id = generateId();
-    expense.date = Date.now();
-    setExpenses([...expenses, expense]);
+    if (expense.id) {
+      //editing
+      const updateExpenses = expenses.map(spentState => spentState.id === expense.id ? expense : spentState);
+      setExpenses(updateExpenses);
+      //setExpenses({});
+    } else {
+      //new expense
+      expense.id = generateId();
+      expense.date = Date.now();
+      setExpenses([...expenses, expense]);
+    }
 
     //close modal
     setAnimateModal(false);
