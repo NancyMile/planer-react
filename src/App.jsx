@@ -12,7 +12,8 @@ function App() {
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState(
+    localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []);
   const [spentEdit, setSpentEdit] = useState({});
 
   useEffect(() => {
@@ -30,6 +31,11 @@ function App() {
     //console.log('Budget');
     Number(localStorage.setItem('budget', budget ?? 0));
   }, [budget]);
+
+  useEffect(() => {
+    //console.log('Budget');
+    Number(localStorage.setItem('expenses',JSON.stringify(expenses) ?? []));
+  }, [expenses]);
 
   useEffect(() => {
     const budgetLS = Number(localStorage.getItem('budget')) ?? 0;
