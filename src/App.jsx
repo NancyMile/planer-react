@@ -16,12 +16,18 @@ function App() {
 
   useEffect(() => {
     if (Object.keys(spentEdit).length > 0) {
-      console.log('Spent edit ready');
+      //console.log('Spent edit ready');
+      setModal(true);
+
+      setTimeout(() => {
+        setAnimateModal(true);
+      },500);
     }
   },[spentEdit]);
 
   const handleNewSpent = () => {
     setModal(true);
+    setSpentEdit({})
 
     setTimeout(() => {
       setAnimateModal(true);
@@ -71,6 +77,7 @@ function App() {
         animateModal={animateModal}
         setAnimateModal={setAnimateModal}
         saveExpense={saveExpense}
+        spentEdit={spentEdit}
         />
       }
 

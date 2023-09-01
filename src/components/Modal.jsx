@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CloseBtn from '../img/cerrar.svg';
 import Message from './Message';
 
-const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense }) => {
+const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense, spentEdit }) => {
 
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        if (Object.keys(spentEdit).length > 0) {
+            //console.log('modal ready');
+            setName(spentEdit.name);
+            setAmount(spentEdit.amount);
+            setCategory(spentEdit.category);
+        }
+    },[]);
 
     const hideModal = () => {
         setAnimateModal(false);
