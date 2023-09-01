@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const ControlBudget = ({ budget, expenses }) => {
 
+    const [percentage, setPercentage] = useState(0);
     const [available, setAvailable] = useState(0);
     const [spent, setSpent] = useState(0);
 
@@ -11,6 +14,13 @@ const ControlBudget = ({ budget, expenses }) => {
 
         const totalAvailable = budget - totalSpent;
         setAvailable(totalAvailable);
+
+        //calcu;ate percentage
+        const newPercentage = (((budget - totalAvailable) / budget) * 100).toFixed(2);
+
+        setTimeout(() => {
+            setPercentage(newPercentage);
+        }, 1500);
 
     },[expenses])
 
@@ -24,7 +34,11 @@ const ControlBudget = ({ budget, expenses }) => {
   return (
       <div className="contenedor-presupuesto contenedor sombra dos-columnas">
           <div>
-              <p>Graphic</p>
+              <p>
+                  <CircularProgressbar
+                    value={percentage}
+                  />
+              </p>
               <div className="contenido-presupuesto">
                   <p>
                       <span>Budget:</span>{formatAmount(budget)}
