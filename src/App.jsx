@@ -16,7 +16,9 @@ function App() {
   const [expenses, setExpenses] = useState(
     localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []);
   const [spentEdit, setSpentEdit] = useState({});
+
   const [filter, setFilter] = useState('');
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
 
   useEffect(() => {
     if (Object.keys(spentEdit).length > 0) {
@@ -41,7 +43,11 @@ function App() {
 
   useEffect(() => {
     if (filter) {
-      console.log('filtrando')
+      //console.log('filtrando')
+      const filteredExpenses = expenses.filter(expense => expense.category === filter)
+      //console.log(filteredExpenses)
+      setFilteredExpenses(filteredExpenses)
+
     }
   },[filter]);
 
