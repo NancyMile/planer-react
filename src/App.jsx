@@ -7,7 +7,8 @@ import ExpensesList from './components/ExpensesList';
 
 function App() {
 
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState(
+    localStorage.getItem('budget') ?? 0);
   const [isValidBudget, setIsValidBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
@@ -23,7 +24,19 @@ function App() {
         setAnimateModal(true);
       },500);
     }
-  },[spentEdit]);
+  }, [spentEdit]);
+
+  useEffect(() => {
+    //console.log('Budget');
+    Number(localStorage.setItem('budget', budget ?? 0));
+  }, [budget]);
+
+  useEffect(() => {
+    const budgetLS = Number(localStorage.getItem('budget')) ?? 0;
+    if (budgetLS > 0) {
+      setIsValidBudget(true)
+    }
+  },[]);
 
   const handleNewSpent = () => {
     setModal(true);

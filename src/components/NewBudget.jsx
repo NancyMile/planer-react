@@ -25,7 +25,7 @@ function NewBudget({ budget, setBudget, setIsValidBudget }) {
       <form className='formulario' onSubmit={handleBudget}>
         <div className='campo'>
           <label htmlFor="budget">Budget</label>
-          <input onChange={(e) => { setBudget(Number(e.target.value)) }}  className='neevo-presupuesto' placeholder='Add budget' type="number" name="" id="" />
+          <input onChange={(e) => { setBudget(Number(e.target.value)) }}  className='neevo-presupuesto' placeholder='Add budget' type="number" name="budget" id="budget" value={budget} />
           <input type="submit" value="Save" />
           {message && <Message type="error">{message}</Message>}
         </div>
