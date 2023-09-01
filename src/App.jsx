@@ -39,7 +39,7 @@ function App() {
       //editing
       const updateExpenses = expenses.map(spentState => spentState.id === expense.id ? expense : spentState);
       setExpenses(updateExpenses);
-      //setExpenses({});
+      setSpentEdit({});
     } else {
       //new expense
       expense.id = generateId();
@@ -93,6 +93,7 @@ function App() {
         setAnimateModal={setAnimateModal}
         saveExpense={saveExpense}
         spentEdit={spentEdit}
+        setSpentEdit={setSpentEdit}
         />
       }
 
