@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-const ControlBudget = ({ budget, expenses }) => {
+const ControlBudget = ({ budget, expenses, setBudget, setExpenses, setIsValidBudget }) => {
 
     const [percentage, setPercentage] = useState(0);
     const [available, setAvailable] = useState(0);
@@ -31,9 +31,19 @@ const ControlBudget = ({ budget, expenses }) => {
         })
     }
 
+    const handleResetApp = () => {
+        const result = confirm('Are you sure?');
+        if (result) {
+            console.log('RESET')
+            setBudget(0);
+            setExpenses([]);
+            setIsValidBudget(false);
+        }
+    }
+
   return (
       <div className="contenedor-presupuesto contenedor sombra dos-columnas">
-          <div>
+          <>
                 <CircularProgressbar
                     styles={buildStyles({
                         pathColor: percentage > 100 ? '#DC2626':'#3b82f6',
@@ -44,6 +54,9 @@ const ControlBudget = ({ budget, expenses }) => {
                     text={`${percentage} % Spent`}
                 />
               <div className="contenido-presupuesto">
+                  <button className="reset-app" type="button" onClick={handleResetApp}>
+                      Reset app
+                  </button>
                   <p>
                       <span>Budget:</span>{formatAmount(budget)}
                   </p>
@@ -56,7 +69,7 @@ const ControlBudget = ({ budget, expenses }) => {
                       <span>Spent:</span>{formatAmount(spent)}
                   </p>
               </div>  
-          </div>
+          </>
     </div>
   )
 }
