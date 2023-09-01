@@ -114,6 +114,8 @@ function App() {
               expenses={expenses}
               setSpentEdit={setSpentEdit}
               deleteExpense={deleteExpense}
+              filter={filter}
+              filteredExpenses={filteredExpenses}
             />
           </main>
           <div className='nuevo-gasto'>
